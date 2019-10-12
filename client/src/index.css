@@ -1,0 +1,166 @@
+@import url('https://fonts.googleapis.com/css?family=Bree+Serif|Raleway:300,400&display=swap');
+
+:root {
+  /* Colors */
+  --primary--clr: #ffe17e;
+  --primary--clr--hover: #ffe17eb9;
+  --secondry--clr: #2a2428;
+  --white--clr: #f4f4f4;
+  --hover--clr: #2a2428;
+  /* Gradient Background Colors*/
+  --primary--clr--gradient: radial-gradient(
+    circle,
+    #ffe17e,
+    #fbdd7c,
+    #f6d979,
+    #f2d677,
+    #eed275
+  );
+  --secondry--clr--gradient: radial-gradient(
+    circle,
+    #2a2428,
+    #272225,
+    #242023,
+    #221e20,
+    #1f1c1e
+  );
+  /* Fonts */
+  --primary--fn: 'Bree Serif', serif;
+  --secondry--fn: 'Raleway', sans-serif;
+  /* font weight */
+  --bold--fn: bold;
+  --light--fn: light;
+}
+
+*,
+*::after,
+*::before {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  line-height: 1.6;
+}
+
+body,
+html {
+  font-family: var(--secondry--fn);
+  font-family: 1.1rem;
+  overflow-x: hidden;
+  width: 100%;
+  background: radial-gradient(
+    circle,
+    #ffffff,
+    #fdfdfd,
+    #fbfbfb,
+    #f9f9f9,
+    #f7f7f7,
+    #f6f6f6,
+    #f5f5f5,
+    #f4f4f4,
+    #f4f4f4,
+    #f3f3f3,
+    #f3f3f3,
+    #f2f2f2
+  );
+}
+
+#root {
+  position: relative;
+  min-height: 100vh;
+  overflow-x: hidden;
+  display: grid;
+}
+
+a {
+  color: var(--white--clr);
+}
+a:hover {
+  text-decoration: none;
+}
+
+a:hover {
+  border: none;
+  color: var(--white--clr);
+}
+
+p {
+  font-size: 1.15rem;
+  line-height: 1.5;
+}
+
+footer {
+  background: var(--secondry--clr--gradient);
+}
+
+/* Btn Style */
+.btnStl {
+  color: #fff;
+  text-transform: uppercase;
+  text-decoration: none;
+  background: var(--secondry--clr);
+  padding: 20px;
+  border-radius: 5px;
+  display: inline-block;
+  border: none;
+  transition: all 0.4s ease 0s;
+  font-weight: bold;
+  font-family: var(--primary--fn);
+  letter-spacing: 1px;
+}
+
+.btnStl:hover,
+.btnStl:focus {
+  background: var(--primary--clr);
+  letter-spacing: 1.2px;
+  color: var(--secondry--clr);
+  box-shadow: 5px 40px -10px rgba(0, 0, 0, 0.57);
+  transition: all 0.4s ease 0s;
+}
+
+.loading {
+  min-height: 100vh;
+  width: 100%;
+  background: radial-gradient(
+    circle,
+    #ffffff,
+    #fdfdfd,
+    #fbfbfb,
+    #f9f9f9,
+    #f7f7f7,
+    #f6f6f6,
+    #f5f5f5,
+    #f4f4f4,
+    #f4f4f4,
+    #f3f3f3,
+    #f3f3f3,
+    #f2f2f2
+  );
+}
+
+/* Modal style */
+.modal-header {
+  padding: 0.1rem 1rem;
+}
+
+.modal-header button span {
+  font-size: 3.5rem;
+}
+
+.modal-header .modal-title {
+  align-self: center;
+  font-weight: bold;
+  font-family: var(--primary--fn);
+  font-size: 2rem;
+  margin-left: 0.5em;
+}
+
+.modal--description {
+  padding: 2em;
+}
+
+.Not--found {
+  font-size: 1.5rem;
+  font-weight: bold;
+  font-family: var(--primary--fn);
+  color: var(--white--clr);
+}
