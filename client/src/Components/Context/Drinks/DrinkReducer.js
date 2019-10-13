@@ -4,7 +4,8 @@ const useDrinkReducer = (state, action) => {
       return {
         ...state,
         popularDrinks: action.popularDr,
-        feturedDrinks: action.feturedDr
+        feturedDrinks: action.feturedDr,
+        initialMd: action.initialMenu
       };
     case 'SET_MENU_DATA':
       return {

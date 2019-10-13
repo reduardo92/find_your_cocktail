@@ -1,4 +1,4 @@
-import React, { useReducer, useEffect } from 'react';
+import React, { useReducer, useEffect, useState } from 'react';
 import useDataApi from '../../Hooks/useDataApi';
 import DrinkContext from './DrinkContext';
 import useDrinkReducer from './DrinkReducer';
@@ -9,6 +9,7 @@ const drinksInitalState = {
   feturedDrinks: [],
   profileDrink: {},
   profileIngredient: {},
+  initialMd: [],
   menuData: { options: {}, data: {} },
   currentPage: 1,
   drinksPerPage: 20,
@@ -16,6 +17,11 @@ const drinksInitalState = {
 };
 
 const DrinkState = ({ children }) => {
+  const [form, setForm] = useState({
+    searchBy: '',
+    filterBy: 'none',
+    subFilter: ''
+  });
   const [state, dispatch] = useReducer(useDrinkReducer, drinksInitalState);
 
   const {
@@ -24,6 +30,7 @@ const DrinkState = ({ children }) => {
     profileDrink,
     profileIngredient,
     menuData,
+    initialMd,
     currentPage,
     drinksPerPage,
     type
@@ -36,7 +43,8 @@ const DrinkState = ({ children }) => {
     dispatch({
       type: 'SET_HOME_DATA',
       popularDr: data.popularDrinks,
-      feturedDr: data.feturedDrinks
+      feturedDr: data.feturedDrinks,
+      initialMenu: data.initialMd
     });
     dispatch({ type: 'SET_MENU_OPTIONS', payload: data.menuOptions });
   }, [data]);
@@ -79,7 +87,11 @@ const DrinkState = ({ children }) => {
   const paginate = pageNumber =>
     dispatch({ type: 'SET_CURRENT_PAGE', setCurrentPage: pageNumber });
 
-  console.log(totalDrinks);
+  console.log(initialMd && initialMd.length);
+  console.log(
+    'menud data',
+    menuData.data && Object.values(menuData.data).length
+  );
   return (
     <DrinkContext.Provider
       value={{
@@ -88,8 +100,10 @@ const DrinkState = ({ children }) => {
         profileDrink,
         profileIngredient,
         menuData,
+        initialMd,
+        form,
+        setForm,
         setCurrentDrinks,
-        // currentDrinks,
         setTypePage,
         getProfileItem,
         unmountProfile,

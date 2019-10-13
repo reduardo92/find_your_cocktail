@@ -37,7 +37,8 @@ router.get('/', async (req, res) => {
         glasses: fetchOptions[1].data.drinks,
         ingredients: fetchOptions[2].data.drinks,
         alcoholic: fetchOptions[3].data.drinks
-      }
+      },
+      initialMd: fetchPopularDrinks.data.drinks
     });
   } catch (error) {
     console.log(error);

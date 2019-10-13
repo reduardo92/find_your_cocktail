@@ -13,10 +13,10 @@ router.get('/', async (req, res) => {
   const { searchBy, filterBy, subFilter } = req.query;
   try {
     //   Get Popular Data
-    if (searchBy === '' && filterBy === 'none') {
-      const fetchData = await axios.get(`${process.env.API_URL}popular.php`);
-      res.json(fetchData.data.drinks);
-    }
+    // if (searchBy === '' && filterBy === 'none') {
+    //   const fetchData = await axios.get(`${process.env.API_URL}popular.php`);
+    //   res.json(fetchData.data.drinks);
+    // }
     //   Get Drinks by Search input
     if (searchBy !== '' && filterBy === 'none') {
       const fetchData = await axios.get(
