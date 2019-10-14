@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 
@@ -36,9 +36,18 @@ const Styled = styled.div`
   }
 
   .popular--card--img {
+    display: ${props => (props.showImg ? 'block' : 'none')};
     width: 200px;
     transition: opacity, transform 0.3s ease-in-out;
     filter: drop-shadow(2px 4px 6px black);
+    margin: 0 auto;
+  }
+
+  .blur-img {
+    background-color: #3e3e3e;
+    filter: blur(2px);
+    width: 200px;
+    height: 200px;
     margin: 0 auto;
   }
 
@@ -75,20 +84,37 @@ const Styled = styled.div`
     .popular--card--img {
       width: 250px;
     }
+
+    .blur-img {
+      width: 250px;
+      height: 250px;
+    }
   }
 `;
 
-const PopularImgCard = ({ keyId, img, name, linkTo, nameColor, addClass }) => (
-  <Styled
-    key={keyId}
-    className={`popular--card ${addClass}`}
-    nameColor={nameColor}
-  >
-    <Link className='popular--link' to={`${linkTo}`}>
-      <img className='popular--card--img' src={img} alt={name} />
-      <p className='popular--card--name'>{name}</p>
-    </Link>
-  </Styled>
-);
+const PopularImgCard = ({ keyId, img, name, linkTo, nameColor, addClass }) => {
+  const [loading, setLoading] = useState(false);
+
+  return (
+    <Styled
+      key={keyId}
+      className={`popular--card ${addClass}`}
+      nameColor={nameColor}
+      showImg={loading}
+    >
+      <Link className='popular--link' to={`${linkTo}`}>
+        {!loading ? <div className='blur-img' /> : null}
+
+        <img
+          onLoad={() => setLoading(true)}
+          className='popular--card--img'
+          src={img}
+          alt={name}
+        />
+        <p className='popular--card--name'>{name}</p>
+      </Link>
+    </Styled>
+  );
+};
 
 export default PopularImgCard;

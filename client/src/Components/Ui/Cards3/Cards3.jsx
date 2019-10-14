@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 import Banner from '../Banner/Banner';
@@ -30,9 +30,11 @@ const Styled = styled.section`
       }
 
       img {
+        display: ${props => (props.showImg ? 'block' : 'none')};
         border-radius: 50%;
       }
     }
+
     /* Content */
     &__content {
       text-align: center;
@@ -43,6 +45,15 @@ const Styled = styled.section`
     .btnStl:focus {
       border: 7px double var(--secondry--clr);
     }
+  }
+
+  .blur-img {
+    background-color: #3e3e3e;
+    filter: blur(2px);
+    width: 250px;
+    height: 250px;
+    border-radius: 50%;
+    margin: 0 auto;
   }
 
   .grid3--section--card:last-child {
@@ -75,6 +86,11 @@ const Styled = styled.section`
       }
     }
 
+    .blur-img {
+      width: 280px;
+      height: 280px;
+    }
+
     .content--description {
       max-width: 70%;
       margin: 0 auto 1em;
@@ -103,6 +119,11 @@ const Styled = styled.section`
       width: 300px;
     }
 
+    .blur-img {
+      width: 300px;
+      height: 300px;
+    }
+
     .content--title {
       font-size: 2.11rem;
     }
@@ -117,59 +138,70 @@ const Styled = styled.section`
   }
 `;
 
-const Cards3 = ({ headClass, bannerTiitle, drinkData, type = 'drink' }) => (
-  <Styled className={headClass}>
-    <Banner title={bannerTiitle} bannerChange bannerImg={banner_yellow} />
-    <div className='grid3--container'>
-      {type === 'ingredients'
-        ? drinkData &&
-          drinkData.map((drink, i) => (
-            <div
-              key={drink.strIngredient1 + i}
-              className='grid3--section--card'
-            >
-              <div className='grid3--section--card__img'>
-                <Link to={`/ingredients/${drink.strIngredient1}`}>
-                  <img
-                    src={`https://www.thecocktaildb.com/images/ingredients/${drink.strIngredient1}.png`}
-                    alt={drink.strIngredient1}
-                  />
-                </Link>
-              </div>
-              <div className='grid3--section--card__content'>
-                <h2 className='content--title'>{drink.strIngredient1}</h2>
-              </div>
-              <Link
-                to={`/ingredients/${drink.strIngredient1}`}
-                className='btnStl'
+const Cards3 = ({ headClass, bannerTiitle, drinkData, type = 'drink' }) => {
+  const [loading, setLoading] = useState(false);
+
+  return (
+    <Styled className={headClass} showImg={loading}>
+      <Banner title={bannerTiitle} bannerChange bannerImg={banner_yellow} />
+      <div className='grid3--container'>
+        {type === 'ingredients'
+          ? drinkData &&
+            drinkData.map((drink, i) => (
+              <div
+                key={drink.strIngredient1 + i}
+                className='grid3--section--card'
               >
-                View More
-              </Link>
-            </div>
-          ))
-        : drinkData &&
-          drinkData.map((drink, i) => (
-            <div key={drink.idDrink + i} className='grid3--section--card'>
-              <div className='grid3--section--card__img'>
-                <Link to={`/drink/${drink.idDrink}`}>
-                  <img src={drink.strDrinkThumb} alt={drink.strDrink} />
+                <div className='grid3--section--card__img'>
+                  <Link to={`/ingredients/${drink.strIngredient1}`}>
+                    {!loading ? <div className='blur-img' /> : null}
+                    <img
+                      onLoad={() => setLoading(true)}
+                      src={`https://www.thecocktaildb.com/images/ingredients/${drink.strIngredient1}.png`}
+                      alt={drink.strIngredient1}
+                    />
+                  </Link>
+                </div>
+                <div className='grid3--section--card__content'>
+                  <h2 className='content--title'>{drink.strIngredient1}</h2>
+                </div>
+                <Link
+                  to={`/ingredients/${drink.strIngredient1}`}
+                  className='btnStl'
+                >
+                  View More
                 </Link>
               </div>
-              <div className='grid3--section--card__content'>
-                <h2 className='content--title'>{drink.strDrink}</h2>
-                <p className='content--description'>
-                  {drink.strInstructions.length < 100
-                    ? drink.strInstructions
-                    : `${drink.strInstructions.slice(0, 100)}...`}
-                </p>
+            ))
+          : drinkData &&
+            drinkData.map((drink, i) => (
+              <div key={drink.idDrink + i} className='grid3--section--card'>
+                <div className='grid3--section--card__img'>
+                  <Link to={`/drink/${drink.idDrink}`}>
+                    {!loading ? <div className='blur-img' /> : null}
+                    <img
+                      onLoad={() => setLoading(true)}
+                      src={drink.strDrinkThumb}
+                      alt={drink.strDrink}
+                    />
+                  </Link>
+                </div>
+                <div className='grid3--section--card__content'>
+                  <h2 className='content--title'>{drink.strDrink}</h2>
+                  <p className='content--description'>
+                    {drink.strInstructions.length < 100
+                      ? drink.strInstructions
+                      : `${drink.strInstructions.slice(0, 100)}...`}
+                  </p>
+                </div>
+                <Link to={`/drink/${drink.idDrink}`} className='btnStl'>
+                  View More
+                </Link>
               </div>
-              <Link to={`/drink/${drink.idDrink}`} className='btnStl'>
-                View More
-              </Link>
-            </div>
-          ))}
-    </div>
-  </Styled>
-);
+            ))}
+      </div>
+    </Styled>
+  );
+};
 
 export default Cards3;
