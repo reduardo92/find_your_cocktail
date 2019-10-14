@@ -87,11 +87,6 @@ const DrinkState = ({ children }) => {
   const paginate = pageNumber =>
     dispatch({ type: 'SET_CURRENT_PAGE', setCurrentPage: pageNumber });
 
-  console.log(initialMd && initialMd.length);
-  console.log(
-    'menud data',
-    menuData.data && Object.values(menuData.data).length
-  );
   return (
     <DrinkContext.Provider
       value={{
